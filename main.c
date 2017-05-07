@@ -7,14 +7,13 @@
 
 int main(int argc, char** argv) {
     FILE* file;
-    FILE* output;
     char line[MAX_LINE_SIZE];
-    int isWriting;
     int isCSV;
+    int isCSVHeader;
     size_t i;
 
     if (argc <= 1) {
-        printf("usage: WebAdvisorExtractor [INPUT_FILE] -s [OUTPUT_FILE] -csv\n");
+        printf("usage: WebAdvisorExtractor [INPUT_FILE] [-csv|-h]\n");
         return 1;
     }
 
@@ -24,42 +23,31 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    isWriting = 0;
     isCSV = 0;
-    output = stdout;
+    isCSVHeader = 0;
     for (i = 2; i < argc; i++) {
-        if (strcmp(argv[2], "-s") == 0) {
-            if (argc == 3) {
-                fprintf(stderr, "Must provide a file to output to.\n");
-                return 1;
-            }
-            output = fopen(argv[3], "w");
-            if (output == NULL) {
-                fprintf(stderr, "Filepath at \"%s\" could not be opened for writing.\n", argv[3]);
-                fclose(file);
-                return 1;
-            }
-            isWriting = 1;
-        } else if (strcmp(argv[2], "-csv") == 0) {
+        if (strcmp(argv[i], "-csv") == 0) {
             isCSV = 1;
+        } else if (strcmp(argv[i], "-h") == 0) {
+            isCSVHeader = 1;
         }
     }
 
     i = 0;
+    if (isCSV && isCSVHeader) {
+        printCSVHeader();
+    }
     while (fgets(line, MAX_LINE_SIZE, file) != NULL) {
         if (strstr(line, "*") != NULL) {
             if (isCSV) {
-                printCSV(output, line);
+                printCSV(line);
             } else {
-                fprintf(output, "%s", line);
+                printf("%s", line);
             }
         }
         i++;
     }
 
-    if (isWriting) {
-        fclose(output);
-    }
     fclose(file);
 
     return 0;

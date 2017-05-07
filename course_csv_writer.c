@@ -1,9 +1,10 @@
 #include "course_csv_writer.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-void printCSVHeader(FILE* file) {
-    fprintf(file, "type,coursecode,sectioncode,id,coursetitle\n");
+void printCSVHeader() {
+    printf("type,coursecode,sectioncode,id,coursetitle\n");
 }
 
 void trimEnd(char* str) {
@@ -53,7 +54,7 @@ The format looks like this:
 TYPE*COURSE CODE*SECTION CODE (ID) COURSE TITLE
 This function is undefined for any other type of string.
 */
-void printCSV(FILE* file, char* line) {
+void printCSV(char* line) {
     CourseCSV csv;
     int staIndex;
     char* ptr;
@@ -120,5 +121,5 @@ void printCSV(FILE* file, char* line) {
     csv.sectionDigits[DIGITS_LENGTH] = '\0';
     csv.courseTitle[TITLE_LENGTH] = '\0';
 
-    fprintf(file, "%s,%s,%s,%d,\"%s\"\n", csv.courseType, csv.courseDigits, csv.sectionDigits, csv.courseID, csv.courseTitle);
+    printf("%s,%s,%s,%d,\"%s\"\n", csv.courseType, csv.courseDigits, csv.sectionDigits, csv.courseID, csv.courseTitle);
 }
