@@ -1,10 +1,28 @@
 #include "course_csv_writer.h"
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 
-void printCSVHeader() {
-    printf("type,coursecode,sectioncode,id,coursetitle\n");
+void printCSVHeader(FILE* file) {
+    fprintf(file, "type,coursecode,sectioncode,id,coursetitle\n");
+}
+
+void trimEnd(char* str) {
+    size_t length;
+    size_t i;
+
+    if (str == NULL) {
+        return;
+    }
+
+    length = strlen(str);
+
+    for (i = length - 1; i > 0; i--) {
+        if (str[i] == '\n' || str[i] == '\r' || str[i] == ' ') {
+            str[i] = '\0';
+        } else {
+            break;
+        }
+    }
 }
 
 /**
@@ -35,7 +53,7 @@ The format looks like this:
 TYPE*COURSE CODE*SECTION CODE (ID) COURSE TITLE
 This function is undefined for any other type of string.
 */
-void printCSV(char* line) {
+void printCSV(FILE* file, char* line) {
     CourseCSV csv;
     int staIndex;
     char* ptr;
@@ -51,6 +69,9 @@ void printCSV(char* line) {
     if (length == 0) {
         return;
     }
+
+    //Remove any ending whitespace
+    trimEnd(line);
 
     //Begin extracting course type, course code, section code, and id
     staIndex = 0;
@@ -99,5 +120,5 @@ void printCSV(char* line) {
     csv.sectionDigits[DIGITS_LENGTH] = '\0';
     csv.courseTitle[TITLE_LENGTH] = '\0';
 
-    printf("%s,%s,%s,%d,%s\n", csv.courseType, csv.courseDigits, csv.sectionDigits, csv.courseID, csv.courseTitle);
+    fprintf(file, "%s,%s,%s,%d,\"%s\"\n", csv.courseType, csv.courseDigits, csv.sectionDigits, csv.courseID, csv.courseTitle);
 }
