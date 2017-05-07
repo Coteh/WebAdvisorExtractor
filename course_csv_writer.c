@@ -42,6 +42,7 @@ void printCSV(char* line) {
     size_t length;
     size_t i;
 
+    //Bound checks
     if (line == NULL) {
         return;
     }
@@ -51,6 +52,7 @@ void printCSV(char* line) {
         return;
     }
 
+    //Begin extracting course type, course code, section code, and id
     staIndex = 0;
     ptr = line;
     for (i = 0; i < length; i++) {
@@ -89,8 +91,13 @@ void printCSV(char* line) {
         }
     }
 
-    // TODO remove
-    strcpy(csv.courseTitle, "Angel of Death");
+    //Remaining text is for the course title
+    strncpy(csv.courseTitle, ptr, TITLE_LENGTH);
+
+    csv.courseType[DIGITS_LENGTH] = '\0';
+    csv.courseDigits[DIGITS_LENGTH] = '\0';
+    csv.sectionDigits[DIGITS_LENGTH] = '\0';
+    csv.courseTitle[TITLE_LENGTH] = '\0';
 
     printf("%s,%s,%s,%d,%s\n", csv.courseType, csv.courseDigits, csv.sectionDigits, csv.courseID, csv.courseTitle);
 }
