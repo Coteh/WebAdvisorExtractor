@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
     FILE* file;
     char line[MAX_LINE_SIZE];
     int isCSV;
-    int isCSVHeader;
+    int isHeader;
     size_t i;
 
     if (argc <= 1) {
@@ -24,18 +24,22 @@ int main(int argc, char** argv) {
     }
 
     isCSV = 0;
-    isCSVHeader = 0;
+    isHeader = 0;
     for (i = 2; i < argc; i++) {
         if (strcmp(argv[i], "-csv") == 0) {
             isCSV = 1;
         } else if (strcmp(argv[i], "-h") == 0) {
-            isCSVHeader = 1;
+            isHeader = 1;
         }
     }
 
     i = 0;
-    if (isCSV && isCSVHeader) {
-        printCSVHeader();
+    if (isHeader) {
+        if (isCSV) {
+            printCSVHeader();
+        } else {
+            printf("coursedata\n");
+        }
     }
     while (fgets(line, MAX_LINE_SIZE, file) != NULL) {
         if (strstr(line, "*") != NULL) {
