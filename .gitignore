@@ -1,2 +1,5 @@
 *.exe
 WebAdvisorExtractor
+csv_test
+*.exe.stackdump
+*.o

@@ -1,0 +1,96 @@
+#include "course_csv_writer.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+void printCSVHeader() {
+    printf("type,coursecode,sectioncode,id,coursetitle\n");
+}
+
+/**
+Turns something like this: "(2750)"
+into an integer like: 2750
+Note: "(0200)" -> 200
+On error, returns a 0 and errno updated
+to reflect atoi's error code
+*/
+int getCourseID(char* idStr) {
+    int result;
+    size_t length;
+
+    length = strlen(idStr);
+    if (idStr == NULL || length <= 2) {
+        return;
+    }
+
+    idStr[length - 1] = '\0';
+
+    result = atoi(&idStr[1]);
+
+    return result;
+}
+
+/**
+The format looks like this:
+TYPE*COURSE CODE*SECTION CODE (ID) COURSE TITLE
+This function is undefined for any other type of string.
+*/
+void printCSV(char* line) {
+    CourseCSV csv;
+    int staIndex;
+    char* ptr;
+    size_t length;
+    size_t i;
+
+    if (line == NULL) {
+        return;
+    }
+
+    length = strlen(line);
+    if (length == 0) {
+        return;
+    }
+
+    staIndex = 0;
+    ptr = line;
+    for (i = 0; i < length; i++) {
+        switch (line[i]) {
+            case '*': {
+                switch (staIndex) {
+                    case 0:
+                        line[i] = '\0';
+                        strncpy(csv.courseType, ptr, DIGITS_LENGTH);
+                        ptr = &line[i + 1];
+                        break;
+                    case 1:
+                        line[i] = '\0';
+                        strncpy(csv.courseDigits, ptr, DIGITS_LENGTH);
+                        ptr = &line[i + 1];
+                        break;
+                }
+                staIndex++;
+                break;
+            }
+            case ' ': {
+                switch (staIndex) {
+                    case 2:
+                        line[i] = '\0';
+                        strncpy(csv.sectionDigits, ptr, DIGITS_LENGTH);
+                        ptr = &line[i + 1];
+                        break;
+                    case 3:
+                        line[i] = '\0';
+                        csv.courseID = getCourseID(ptr);
+                        ptr = &line[i + 1];
+                        break;
+                }
+                staIndex++;
+            }
+        }
+    }
+
+    // TODO remove
+    strcpy(csv.courseTitle, "Angel of Death");
+
+    printf("%s,%s,%s,%d,%s\n", csv.courseType, csv.courseDigits, csv.sectionDigits, csv.courseID, csv.courseTitle);
+}

@@ -9,6 +9,7 @@ int main(int argc, char** argv) {
     FILE* output;
     char line[MAX_LINE_SIZE];
     int isWriting;
+    int isCSV;
     size_t i;
 
     if (argc <= 1) {
@@ -23,6 +24,7 @@ int main(int argc, char** argv) {
     }
 
     isWriting = 0;
+    isCSV = 0;
     if (argc > 2 && strcmp(argv[2], "-s") == 0) {
         if (argc == 3) {
             fprintf(stderr, "Must provide a file to output to.\n");

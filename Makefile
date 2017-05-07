@@ -1,8 +1,23 @@
-CC	:= gcc
+CC			:= gcc
 PROGNAME	:= WebAdvisorExtractor
+CFLAGS		:= -std=c99 -Wall
+TESTNAME	:= csv_test
+OBJS		:= course_csv_writer.o
 
-all:
-	$(CC) main.c -std=c99 -Wall -o $(PROGNAME)
+all: prog test
+
+debug: DFLAGS += -g
+debug: all
+
+prog: $(OBJS)
+	$(CC) main.c $(DFLAGS) $(OBJS) $(CFLAGS) -o $(PROGNAME)
+
+test: DFLAGS += -g
+test: $(OBJS)
+	$(CC) test.c $(DFLAGS) $(OBJS) $(CFLAGS) -o $(TESTNAME) 
+
+%.o: %.c
+	$(CC) $< $(DFLAGS) $(CFLSGS) -c -o $@
 
 clean:
-	$(RM) $(PROGNAME)
+	$(RM) $(PROGNAME) $(TESTNAME) $(OBJS) *.exe
