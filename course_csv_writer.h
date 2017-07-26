@@ -15,4 +15,7 @@ typedef struct CourseCSV_struct {
 void printCSVHeader();
 void printCSV(char* line);
 
+void trimEnd(char* str);
+int getCourseID(char* idStr);
+
 #endif /* end of include guard: __COURSE_CSV_WRITER_H__ */

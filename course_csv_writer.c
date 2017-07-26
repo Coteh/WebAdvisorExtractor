@@ -31,21 +31,34 @@ Turns something like this: "(2750)"
 into an integer like: 2750
 Note: "(0200)" -> 200
 On error, returns a 0 and errno updated
-to reflect atoi's error code
+to reflect error
 */
 int getCourseID(char* idStr) {
     int result;
     size_t length;
+    char* copyStr;
 
-    length = strlen(idStr);
-    if (idStr == NULL || length <= 2) {
-        return;
+    if (idStr == NULL) {
+        return 0;
     }
 
-    idStr[length - 1] = '\0';
+    length = strlen(idStr);
+    if (length <= 2) {
+        return 0;
+    }
 
-    result = atoi(&idStr[1]);
+    copyStr = malloc(sizeof *copyStr * (length + 1));
+    if (copyStr == NULL) {
+        return 0;
+    }
 
+    strncpy(copyStr, idStr, sizeof *copyStr * (length + 1));
+
+    copyStr[length - 1] = '\0';
+
+    result = atoi(&copyStr[1]);
+
+    free(copyStr);
     return result;
 }
 

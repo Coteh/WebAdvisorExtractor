@@ -1,19 +1,32 @@
-#include <stdio.h>
-#include <string.h>
 #include "course_csv_writer.h"
+#include <string.h>
+#include <stdio.h>
 
 int main(int argc, char** argv) {
     char testStr[100];
+    int courseID;
+    int testStatus;
 
-    printf("Testing CSV Header print...\n");
-    printCSVHeader();
-    printf("Testing CSV data print...\n");
-    strcpy(testStr, "ZOO*4920*01 (6652) Lab Studies in Ornithology");
-    printCSV(testStr);
-    printf("Testing CSV bounds...\n");
-    strcpy(testStr, "CHOPITOFF*123456789*123456789 (123456789) The rest of this should be printed in title");
-    printCSV(testStr);
-    printf("Testing complete.\n");
-
-    return 0;
+    testStatus = 0;
+    printf("Testing trimEnd...\t\t\t\t");
+    strcpy(testStr, "No ending whitespace \r\n");
+    trimEnd(testStr);
+    if (strcmp(testStr, "No ending whitespace") != 0) {
+        printf("X\n");
+        testStatus = 1;
+    } else {
+        printf("✓\n");
+    }
+    printf("Testing getCourseID...\t\t\t\t");
+    courseID = getCourseID("(0200)");
+    if (courseID != 200) {
+        printf("X\n");
+        testStatus = 1;
+    } else {
+        printf("✓\n");
+    }
+    if (testStatus == 0) {
+        printf("All tests pased!\n");
+    }
+    return testStatus;
 }
