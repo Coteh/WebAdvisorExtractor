@@ -5,6 +5,15 @@
 
 #define MAX_LINE_SIZE 255
 
+void printUsage() {
+    printf("usage: WebAdvisorExtractor [OPTIONS]... [INPUT_FILE]\n");
+}
+
+void printHelp() {
+    printUsage();
+    printf("\n-csv\t\t\tFormat output to CSV specification.\n-d\t\t\tPlace headers on top of output.\n-h, --help\t\tShow help.\n");
+}
+
 int main(int argc, char** argv) {
     FILE* file;
     char line[MAX_LINE_SIZE];
@@ -12,25 +21,38 @@ int main(int argc, char** argv) {
     int isHeader;
     size_t i;
 
-    if (argc <= 1) {
-        printf("usage: WebAdvisorExtractor [INPUT_FILE] [-csv|-h]\n");
-        return 1;
-    }
-
-    file = fopen(argv[1], "r");
-    if (file == NULL) {
-        fprintf(stderr, "Filepath at \"%s\" could not be opened.\n", argv[1]);
-        return 1;
-    }
-
     isCSV = 0;
     isHeader = 0;
-    for (i = 2; i < argc; i++) {
+    file = NULL;
+
+    if (argc <= 1) {
+        printUsage();
+        return 1;
+    }
+
+    for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-csv") == 0) {
             isCSV = 1;
-        } else if (strcmp(argv[i], "-h") == 0) {
+        } else if (strcmp(argv[i], "-d") == 0) {
             isHeader = 1;
+        } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+            printHelp();
+            if (file != NULL) {
+                fclose(file);
+            }
+            return 1;
+        } else {
+            file = fopen(argv[i], "r");
+            if (file == NULL) {
+                fprintf(stderr, "Filepath at \"%s\" could not be opened.\n", argv[1]);
+                return 1;
+            }
         }
+    }
+
+    if (file == NULL) {
+        fprintf(stderr, "No file specified.");
+        return 1;
     }
 
     i = 0;
