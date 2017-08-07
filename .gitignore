@@ -3,3 +3,5 @@ WebAdvisorExtractor
 csv_test
 *.exe.stackdump
 *.o
+*.txt
+!/Courses_Fall2017.txt
