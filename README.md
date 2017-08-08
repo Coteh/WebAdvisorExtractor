@@ -12,12 +12,12 @@ Highlight the whole page by pressing Ctrl-A then press Ctrl-C or right click Cop
 
 Run the program like below:
 
-`./WebAdvisorExtractor input.txt [-csv|-h]`
+`./WebAdvisorExtractor [OPTIONS]... [INPUT_FILE]`
 
-Where `input.txt` is the input file you just created, and optional flags below:
-
--csv                Format output to CSV specification.
--d                  Place headers on top of output.
+Where `[INPUT_FILE]` is the input file you just created, and `[OPTIONS]...` are the optional flags below:  
+  
+-csv                Format output to CSV specification.  
+-d                  Place headers on top of output.  
 -h, --help          Show help.
 
 ## Motivation
