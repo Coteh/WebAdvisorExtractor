@@ -1,4 +1,4 @@
-# WebAdvisorExtractor
+# WebAdvisorExtractor [![Build Status](https://travis-ci.org/Coteh/WebAdvisorExtractor.svg?branch=master)](https://travis-ci.org/Coteh/WebAdvisorExtractor)
 
 A small command line program that breaks up courselists from [University of Guelph's website](http://www.uoguelph.ca/) and exports it out as a CSV.
 
