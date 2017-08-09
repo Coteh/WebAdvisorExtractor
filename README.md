@@ -4,7 +4,7 @@ A small command line program that breaks up courselists from University of Guelp
 
 ## Usage
 
-Navigate to the University of Guelph's WebAdvisor, select "Students", then "Search for Sections".
+Navigate to the University of Guelph's [WebAdvisor](https://webadvisor.uoguelph.ca/WebAdvisor/WebAdvisor), select "Students" from the Main Menu, then "Search for Sections" from the Registration menu.
 
 Go down to the bottom and select courses at Location "G - Guelph" and Academic Level "UG - Undergraduate" or whichever options you want.
 
@@ -15,14 +15,16 @@ Run the program like below:
 `./WebAdvisorExtractor [OPTIONS]... [INPUT_FILE]`
 
 Where `[INPUT_FILE]` is the input file you just created, and `[OPTIONS]...` are the optional flags below:  
-  
--csv                Format output to CSV specification.  
--d                  Place headers on top of output.  
--h, --help          Show help.
+
+| Flag              | Description                         |
+| ------------------|-------------------------------------|
+| -csv              | Format output to CSV specification. |
+| -d                | Place headers on top of output.     |
+| -h, --help        | Show help.                          |
 
 ## Motivation
 
-I need to be able to populate an upcoming side project of mine (that may or may not come to fruition :P) with a bunch of test course information data, and I thought what better way to do this than to scrape the text of University of Guelph's WebAdvisor site for the information? The information is then bundled up into a CSV file that I can then plop in to my database for consumption by the application.
+I need to be able to populate an upcoming side project of mine (that may or may not come to fruition :P) with a bunch of test course information data, and I thought what better way to do this than to scrape the text of University of Guelph's WebAdvisor site for the information. The information is then bundled up into a CSV file that I can then plop in to my database for consumption by the application.
 
 ## Future Additions
 - Integration into other university websites
