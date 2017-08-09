@@ -27,5 +27,5 @@ Where `[INPUT_FILE]` is the input file you just created, and `[OPTIONS]...` are 
 I need to be able to populate an upcoming side project of mine (that may or may not come to fruition :P) with a bunch of test course information data, and I thought what better way to do this than to scrape the text of University of Guelph's WebAdvisor site for the information. The information is then bundled up into a CSV file that I can then plop in to my database for consumption by the application.
 
 ## Future Additions
-- Integration into other university websites
+- Compatibility with other university websites
 - Configurability of data ordering and export file formats
