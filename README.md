@@ -1,6 +1,6 @@
 # WebAdvisorExtractor
 
-A small command line program that breaks up courselists from University of Guelph's website and exports it out as a CSV.
+A small command line program that breaks up courselists from [University of Guelph's website](http://www.uoguelph.ca/) and exports it out as a CSV.
 
 ## Usage
 
