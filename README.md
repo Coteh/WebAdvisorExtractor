@@ -6,7 +6,7 @@ A small command line program that breaks up courselists from [University of Guel
 
 Navigate to the University of Guelph's [WebAdvisor](https://webadvisor.uoguelph.ca/WebAdvisor/WebAdvisor), select "Students" from the Main Menu, then "Search for Sections" from the Registration menu.
 
-Go down to the bottom and select courses at Location "G - Guelph" and Academic Level "UG - Undergraduate" or whichever options you want.
+Go down to the bottom and select courses at Location "G - Guelph" and Academic Level "UG - Undergraduate" or whichever options you want. Be sure to select a term as well.
 
 Highlight the whole page by pressing Ctrl-A then press Ctrl-C or right click Copy to copy the contents, then paste it into a text document and save it.
 
